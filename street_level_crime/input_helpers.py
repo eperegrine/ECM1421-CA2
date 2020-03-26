@@ -56,7 +56,6 @@ def ui_get_directory_name():
         if validate_file_name(directory_name):
             print("Path accepted")
             return directory_name
-            break
         else:
             print("Wrong! Path cant contain the following characters: < (less than) , > (greater than) , : (colon) , \" (double quote) , / (forward slash)  , \\ (backslash) , | (vertical bar or pipe) \n ? (question mark) , * (asterisk) ")
 
