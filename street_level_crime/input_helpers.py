@@ -47,7 +47,6 @@ def ui_get_file_name():
         if validate_file_name(file_name):
             print("File name accepted")
             return file_name
-            break
         else:
             print("Wrong! Path cant contain the following characters: < (less than) , > (greater than) , : (colon) , \" (double quote) , / (forward slash)  , \\ (backslash) , | (vertical bar or pipe) \n ? (question mark) , * (asterisk)")
 
