@@ -6,6 +6,7 @@ columnHeaders = []
 
 def convertToCSV(data):
     try:
+        rowNumber = 0
         with open('crime data.csv', 'w', newline='') as f:
             csvWritter = csv.writer(f)
             columnHeaders[:] = data[0]
@@ -26,10 +27,12 @@ def convertToCSV(data):
 
 
 def splitRows(data, rowLength, rowNumber):
-    firstPositionInRow = (rowLength * rowNumber)-rowLength
+    firstPositionInRow = (rowLength * rowNumber) - rowLength
     lastPositionInRow = (rowLength * rowNumber)
     rowData[:] = data[firstPositionInRow:lastPositionInRow]
 
 
+# Column Headers stored in first array
+# Data to be stored in second array
 data = [['a', 'b', 'c'], ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o']]
 convertToCSV(data)
