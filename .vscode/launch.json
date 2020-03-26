@@ -9,6 +9,12 @@
             "type": "python",
             "request": "launch",
             "module": "street_level_crime"
+        },
+        {
+            "name": "Test",
+            "type": "python",
+            "request": "launch",
+            "module": "street_level_crime/tests"
         }
     ]
 }
