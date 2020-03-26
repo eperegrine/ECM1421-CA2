@@ -20,7 +20,7 @@ def ui_get_postcode():
 def ui_get_distance():
     while True:
         distance = input("Please, select distance from postcode centre: [1] 1km \n [2] 2km \n [3] 5km \n")
-        if distance == str(1) or option == str(2) or option == str(3):
+        if distance in ["1", "2", "3"]:
             break
         else:
             print("Please, select a number from 1 to 3")
@@ -63,4 +63,3 @@ def ui_get_directory_name():
 
         
 #Function to produce a tabular report
-
