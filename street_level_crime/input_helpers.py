@@ -11,10 +11,7 @@ def validate_file_name(file_name):
     return bool(valid_file_name.match(file_name))
 
 def directory_exists(directory):
-    if os.path.isdir(directory):
-        return True
-    else:
-        return False
+    return os.path.isdir(directory)
 
 def directory_formatting(directory):
     if directory[-1] != "\\" and directory[-1] != "/":
