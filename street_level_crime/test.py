@@ -1,6 +1,7 @@
 import unittest
 import input_helpers
 import geodist
+import data_reader
 
 class UIHelpersTests(unittest.TestCase):
     def test_valid_postcode_no_spaces(self):
@@ -43,6 +44,22 @@ class GeodistTest(unittest.TestCase):
         #5.31 on google maps
         isWithin = geodist.is_within_radius(exeter_cathedral, exeter_science_park, 5.4)
         self.assertTrue(isWithin)
+
+class TestDataReader(unittest.TestCase):
+    def test_process_line(self):
+        csv_line = ['', '2019-03', 'Devon & Cornwall Police', 'Devon & Cornwall Police', '-4.543901', '50.827132', 'On or near Nightclub', 'E01018936', 'Cornwall 001A', 'Anti-social behaviour', '', '']
+        processed = data_reader.process_crime_line(csv_line)
+        lng = processed[data_reader.CrimeDataField.Longitude]
+        lat = processed[data_reader.CrimeDataField.Latitude]
+        self.assertIsInstance(lng, float)
+        self.assertIsInstance(lat, float)
+
+    def test_process_line_skip_none(self):
+        csv_line = ['', '2019-03', 'Devon & Cornwall Police', 'Devon & Cornwall Police', None, '50.827132', 'On or near Nightclub', 'E01018936', 'Cornwall 001A', 'Anti-social behaviour', '', '']
+        processed = data_reader.process_crime_line(csv_line)
+        lng = processed[data_reader.CrimeDataField.Longitude]
+        lat = processed[data_reader.CrimeDataField.Latitude]
+        self.assertIsInstance(lat, float)
 
 
 if __name__ == '__main__':
