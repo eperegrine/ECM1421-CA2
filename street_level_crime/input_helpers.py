@@ -1,13 +1,13 @@
 import re
 import os
 
+uk_postcode_format = re.compile("([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})")
+valid_file_name = re.compile('^[^\\\<>:"/|?]+$')
 
 def validate_postcode(postcode):
-    uk_postcode_format = re.compile("([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})")
     return bool(uk_postcode_format.match(postcode))
 
 def validate_file_name(file_name):
-    valid_file_name = re.compile('^[^\\\<>:"/|?]+$')
     return bool(valid_file_name.match(file_name))
 
 def ui_get_postcode():
