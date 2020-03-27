@@ -12,14 +12,6 @@ def validate_file_name(file_name):
 
 def directory_exists(directory):
     return os.path.isdir(directory)
-
-def directory_formatting(directory):
-    if directory[-1] != "\\" and directory[-1] != "/":
-        if "\\" in directory:
-            directory = directory + "\\"  
-        elif "/" in directory:
-            directory = directory + "/"        
-    return directory
     
 def file_exists(path_to_file):
     return os.path.isfile(path_to_file)
@@ -51,10 +43,9 @@ def ui_get_sort_options():
     while True:
         option = input("Please, select sort option (number 1 to 3): \n 1. By disatnce from the postcode centre \n 2. By date (most recent first) \n 3. Crime category \n")
         if option in ["1", "2", "3"]:
-            break
+            return option
         else:
             print("Please, select a number from 1 to 3")
-    return option
 
 def ui_get_file_and_directory():
     while True:
@@ -68,11 +59,10 @@ def ui_get_file_and_directory():
     while True:
         file_name = input("Please enter a file name: ")
         path_to_file=os.path.join(path_to_directory, file_name)
-        if not file_exists(path_to_file) and validate_file_name(file_name):
-            path_to_file_ext = path_to_file + ".csv"
-            if file_exists(path_to_file_ext):
-                print("File name accepted")
-                return path_to_file + ".csv"
+        path_to_file_ext = path_to_file + ".csv"
+        if not file_exists(path_to_file_ext) and validate_file_name(file_name):
+            print("File name accepted")
+            return path_to_file_ext
         elif file_exists(path_to_file):
             print("File already exists. Please, try different name")       
         else:
