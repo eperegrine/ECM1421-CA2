@@ -67,11 +67,13 @@ def ui_get_file_and_directory():
         
     while True:
         file_name = input("Please enter a file name: ")
-        if not file_exists(path_to_directory + file_name) and validate_file_name(file_name):
-            print("File name accepted")
-            return directory_formatting(path_to_directory) + file_name + ".csv"
-        
-        elif file_exists(path_to_directory + file_name):
+        path_to_file=os.path.join(path_to_directory, file_name)
+        if not file_exists(path_to_file) and validate_file_name(file_name):
+            path_to_file_ext = path_to_file + ".csv"
+            if file_exists(path_to_file_ext):
+                print("File name accepted")
+                return path_to_file + ".csv"
+        elif file_exists(path_to_file):
             print("File already exists. Please, try different name")       
         else:
             print("Wrong! Path cant contain the following characters: < (less than) , > (greater than) , : (colon) , \" (double quote) , / (forward slash)  , \\ (backslash) , | (vertical bar or pipe) \n ? (question mark) , * (asterisk)")
