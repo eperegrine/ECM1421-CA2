@@ -10,17 +10,11 @@ def validate_file_name(file_name):
     valid_file_name = re.compile('^[^\\\<>:"/|?]+$')
     return bool(valid_file_name.match(file_name))
 
-def directory_exists(directory):
-    return os.path.isdir(directory)
-    
-def file_exists(path_to_file):
-    return os.path.isfile(path_to_file)
-
 def ui_get_postcode():
     while True:
         postcode = input("Please, enter postcode (e.g. BH12 2ED)")
         if validate_postcode(postcode):
-            break
+            return postcode
         else:
             print("Please, check your postcode. It must be a valid UK format (e.g. GH12 2ED)")
 
@@ -28,10 +22,9 @@ def ui_get_distance():
     while True:
         distance = input("Please, select distance from postcode centre: [1] 1km \n [2] 2km \n [3] 5km \n")
         if distance in ["1", "2", "3"]:
-            break
+            return distance
         else:
             print("Please, select a number from 1 to 3")
-        return distance
 
 #Function to retrieve postcode data from \data\Devon_postcodes\postcodes.csv
 
@@ -50,7 +43,7 @@ def ui_get_sort_options():
 def ui_get_file_and_directory():
     while True:
         path_to_directory = input("Please, enter a path to destination folder: ")
-        if directory_exists(path_to_directory):
+        if os.path.isdir(path_to_directory):
             print("Path accepted")
             break
         else:
@@ -60,7 +53,7 @@ def ui_get_file_and_directory():
         file_name = input("Please enter a file name: ")
         path_to_file=os.path.join(path_to_directory, file_name)
         path_to_file_ext = path_to_file + ".csv"
-        if not file_exists(path_to_file_ext) and validate_file_name(file_name):
+        if not os.path.isfile(path_to_file_ext) and validate_file_name(file_name):
             print("File name accepted")
             return path_to_file_ext
         elif file_exists(path_to_file):
