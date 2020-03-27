@@ -22,10 +22,7 @@ def directory_formatting(directory):
     return directory
     
 def file_exists(path_to_file):
-    if os.path.isfile(path_to_file):
-        return True
-    else:
-        return False
+    return os.path.isfile(path_to_file)
 
 def ui_get_postcode():
     while True:
