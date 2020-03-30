@@ -22,8 +22,3 @@ def new_convert_to_csv(headers: tuple, data: list) -> csv:
     except:
         print("Error writing to CSV")
         csvWriter.writerow("Error writing to CSV")
-
-
-headers = ['a', 'b', 'c']
-data = [['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i'], ['j', 'k', 'l'], ['m', 'n', 'o']]
-new_convert_to_csv(headers, data)
