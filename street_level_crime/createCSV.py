@@ -5,6 +5,12 @@ columnHeaders = []
 
 
 def convertToCSV(data):
+    """
+    This function converts two arrays into a CSV file
+    :param data: A array of two arrays
+    data Array 1 contains the headers
+    data Array 2 contains the rest of te data
+    """
     try:
         rowNumber = 0
         with open('crime data.csv', 'w', newline='') as f:
@@ -27,6 +33,12 @@ def convertToCSV(data):
 
 
 def splitRows(data, rowLength, rowNumber):
+    """
+    This function creates each row
+    :param data: The full data passed from convertToCSV
+    :param rowLength: Length of the row so the first and last position cna be calculated
+    :param rowNumber: The row number to work out positions in the array
+    """
     firstPositionInRow = (rowLength * rowNumber) - rowLength
     lastPositionInRow = (rowLength * rowNumber)
     rowData[:] = data[firstPositionInRow:lastPositionInRow]
