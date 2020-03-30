@@ -35,7 +35,7 @@ def convertToCSV(data):
 def splitRows(data, rowLength, rowNumber):
     """
     This function creates each row
-    :param data: The full data passed from convertToCSV
+    :param data: Contains the row data separated in ConvertToCSV
     :param rowLength: Length of the row so the first and last position cna be calculated
     :param rowNumber: The row number to work out positions in the array
     """
