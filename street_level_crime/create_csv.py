@@ -26,18 +26,7 @@ def convert_to_csv(headers: tuple, data: list) -> csv:
             CustomPathInput = input()
             special_commands(CustomPathInput)
             if CustomPathInput == "1":
-                try:
-                    src = os.path.dirname(os.path.realpath(filename + ".csv")) + '\\' + filename + ".csv"
-                    home = os.path.expanduser("~")
-                    dst = home + "\\" + input("Please enter a directory: " + home + "\\")
-                    special_commands(dst)
-                    if os.path.exists(dst):
-                        shutil.move(src, dst)
-                        print("Saved to: " + dst)
-                    else:
-                        print("Saved to default location: " + src)
-                except:
-                    print("Unable to save file to custom path")
+                custom_path(filename)
             else:
                 print("Saved to default location: " + os.path.dirname(
                     os.path.realpath(filename + ".csv")) + '\\' + filename + ".csv")
@@ -45,7 +34,20 @@ def convert_to_csv(headers: tuple, data: list) -> csv:
         print("Error writing to CSV")
         csvWriter.writerow("Error writing to CSV")
 
-
+def custom_path(filename):
+    try:
+        src = os.path.dirname(os.path.realpath(filename + ".csv")) + '\\' + filename + ".csv"
+        home = os.path.expanduser("~")
+        dst = home + "\\" + input("Please enter a directory: " + home + "\\")
+        special_commands(dst)
+        if os.path.exists(dst):
+            shutil.move(src, dst)
+            print("Saved to: " + dst)
+        else:
+            print("Saved to default location: " + src)
+    except:
+        print("Unable to save file to custom path")
+        
 def special_commands(variable):
     #Link to Jack Gittoes' Code
 

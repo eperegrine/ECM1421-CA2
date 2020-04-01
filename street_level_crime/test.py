@@ -1,9 +1,9 @@
 import unittest.mock
-from unittest import TestCase
-
+from unittest import TestCase, mock
 import input_helpers
 import geodist
 import data_reader
+import create_csv
 
 
 class UIHelpersTests(unittest.TestCase):
@@ -77,3 +77,5 @@ class TestConvertToCSV(unittest.TestCase):
     def test_convert_to_csv(self):
         headers = ['a', 'b', 'c']
         data = [['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i'], ['j', 'k', 'l'], ['m', 'n', 'o']]
+        with mock.patch('builtins.input', return_value="Jack"):
+
