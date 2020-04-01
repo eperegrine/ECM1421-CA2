@@ -34,6 +34,7 @@ def convert_to_csv(headers: tuple, data: list) -> csv:
         print("Error writing to CSV")
         csvWriter.writerow("Error writing to CSV")
 
+
 def custom_path(filename):
     try:
         src = os.path.dirname(os.path.realpath(filename + ".csv")) + '\\' + filename + ".csv"
@@ -47,9 +48,11 @@ def custom_path(filename):
             print("Saved to default location: " + src)
     except:
         print("Unable to save file to custom path")
-        
+
+
 def special_commands(variable):
-    #Link to Jack Gittoes' Code
+    pass
+    # Link to Jack Gittoes' Code
 
 
 headers = ['a', 'b', 'c']
