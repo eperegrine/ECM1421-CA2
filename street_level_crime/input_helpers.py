@@ -1,5 +1,6 @@
 import re
 import os
+import sys
 
 uk_postcode_format = re.compile("([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})")
 valid_file_name = re.compile('^[^\\\<>:"/|?]+$')
@@ -15,6 +16,7 @@ def ui_get_postcode():
         postcode = input("Please, enter postcode (e.g. BH12 2ED)")
         if validate_postcode(postcode):
             return postcode
+        
         else:
             print("Please, check your postcode. It must be a valid UK format (e.g. GH12 2ED)")
 
@@ -61,3 +63,17 @@ def ui_get_file_and_directory():
         else:
             print("Wrong! Path cant contain the following characters: < (less than) , > (greater than) , : (colon) , \" (double quote) , / (forward slash)  , \\ (backslash) , | (vertical bar or pipe) \n ? (question mark) , * (asterisk)")
         
+def ui_commands(command_input):
+    command_input = command_input.upper()
+    if command_input == "HELP":
+        ui_HELP_command()
+    elif command_input == "RESTART":
+        print("TBD")
+    elif command_input == "QUIT":
+        sys.exit(0)
+    else:
+        print("Command Not Recognised")
+
+def ui_HELP_command(): 
+    print('TBD')
+    
