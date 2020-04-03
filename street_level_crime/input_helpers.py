@@ -66,7 +66,7 @@ def ui_get_file_and_directory():
 def ui_commands(command_input):
     command_input = command_input.upper()
     if command_input == "HELP":
-        ui_HELP_command()
+        ui_help_command()
     elif command_input == "RESTART":
         print("TBD")
     elif command_input == "QUIT":
@@ -74,6 +74,7 @@ def ui_commands(command_input):
     else:
         print("Command Not Recognised")
 
-def ui_HELP_command(): 
+def ui_help_command(): 
+
     print('TBD')
     
