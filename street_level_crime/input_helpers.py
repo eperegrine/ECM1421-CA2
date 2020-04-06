@@ -51,10 +51,11 @@ def ui_get_file_and_directory():
     while True:
         print("A file path example", os.path.expanduser("~"))
         path_to_directory = get_user_input("Please, enter a path to destination folder: ")
-        if os.path.isdir(os.path.join(os.path.dirname(os.getcwd()), path_to_directory)):
-            print("Using relative path:", os.path.join(os.path.dirname(os.getcwd()), path_to_directory))
-        elif os.path.isdir(path_to_directory):
+        if os.path.isdir(path_to_directory):
             print("Path accepted")
+            break
+        elif os.path.exists(os.path.join(os.path.dirname(os.getcwd()), path_to_directory)):
+            print("Using relative path:", os.path.join(os.path.dirname(os.getcwd()), path_to_directory))
             break
         elif os.path.isdir(os.path.dirname(path_to_directory)):
             try:
