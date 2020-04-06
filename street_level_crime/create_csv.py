@@ -20,6 +20,7 @@ def convert_to_csv(headers: tuple, data: list) -> csv:
                 csvWriter.writerow(data[i])
             print("File Created:", filename + ".csv")
             f.close()
+            
             print("Do you want to save to a custom path?")
             print("[1] Yes")
             print("[2] No")
