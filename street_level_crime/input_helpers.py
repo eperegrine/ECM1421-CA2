@@ -49,6 +49,12 @@ def ui_get_file_and_directory():
         if os.path.isdir(path_to_directory):
             print("Path accepted")
             break
+        elif os.path.isdir(os.path.dirname(path_to_directory)):
+            try:
+                os.mkdir(path_to_directory)
+                print("Path not found, New directory created at ", path_to_directory)
+            except:
+                print("Unable to make directory folder with same name can't exist at path location")
         else:
             print("Path to directory doesn't exist. Please, try again.")
 
