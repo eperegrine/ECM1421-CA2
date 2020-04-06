@@ -44,6 +44,7 @@ def ui_get_sort_options():
 
 def ui_get_file_and_directory():
     while True:
+        print("A file path example" , os.path.expanduser("~"))
         path_to_directory = input("Please, enter a path to destination folder: ")
         if os.path.isdir(path_to_directory):
             print("Path accepted")
