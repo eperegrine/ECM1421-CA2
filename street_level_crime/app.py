@@ -6,7 +6,8 @@ import postcode
 
 
 data = [['a', 'b', 'c'], ['a','b','c'],['d', 'e', 'f'], ['g', 'h', 'i'], ['j', 'k', 'l'], ['m', 'n', 'o']]
-if __name__ == "__main__":
+
+def main_application():
     # String Formatting 
     green = "\033[92m"
     end_text_formatting = '\033[0m'
@@ -22,3 +23,14 @@ if __name__ == "__main__":
     sort = input_helpers.ui_get_sort_options()
     path = input_helpers.ui_get_file_and_directory()
     create_csv.convert_to_csv(data, path)
+
+if __name__ == "__main__":
+    while True:
+        try:
+            main_application()
+            break
+        except input_helpers.RestartCommand:
+            red = '\033[91m'
+            bold = '\033[1m'
+            end_text_formatting = '\033[0m'
+            print(red + bold + " \n RESTARTING PROGRAM \n" + end_text_formatting)
