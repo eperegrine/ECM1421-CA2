@@ -1,6 +1,8 @@
 import input_helpers
 import os
 import sys
+import postcode
+
 
 if __name__ == "__main__":
     # String Formatting 
@@ -9,8 +11,11 @@ if __name__ == "__main__":
     underline = '\033[4m'
 
     print(underline + "STREET CRIME IN DEVON \n" + end_text_formatting + green + "COMMANDS: \n HELP: Outputs An Instructions Document. \n QUIT: Quits The Program. \n RESTART: Restarts The Program. \n" + end_text_formatting)
-    postcode = input_helpers.ui_get_postcode()
-    
+    user_postcode = input_helpers.ui_get_postcode()
+
+    coordinate = postcode.postcode_to_coordinate('data\Devon_postcodes\postcodes.csv', user_postcode)
+    print(coordinate)
+
     distance = input_helpers.ui_get_distance()
     sort = input_helpers.ui_get_sort_options()
     output_file = input_helpers.ui_get_file_and_directory()
