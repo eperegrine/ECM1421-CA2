@@ -32,12 +32,11 @@ def ui_get_distance():
         else:
             print("Please, select a number from 1 to 3")
 
+#Function to retrieve postcode data from \data\Devon_postcodes\postcodes.csv
 
-# Function to retrieve postcode data from \data\Devon_postcodes\postcodes.csv
+#Function to calculate centre coordinate of a postcode
 
-# Function to calculate centre coordinate of a postcode
-
-# Function to retreieve all crimes within a distance
+#Function to retreieve all crimes within a distance
 
 def ui_get_sort_options():
     while True:
