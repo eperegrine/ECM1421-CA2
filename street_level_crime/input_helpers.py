@@ -5,11 +5,14 @@ import sys
 uk_postcode_format = re.compile("([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})")
 valid_file_name = re.compile('^[^\\\<>:"/|?]+$')
 
+
 def validate_postcode(postcode):
     return bool(uk_postcode_format.match(postcode))
 
+
 def validate_file_name(file_name):
     return bool(valid_file_name.match(file_name))
+
 
 def ui_get_postcode():
     while True:
@@ -19,6 +22,7 @@ def ui_get_postcode():
 
         else:
             print("Please, check your postcode. It must be a valid UK format (e.g. GH12 2ED)")
+
 
 def ui_get_distance():
     while True:
@@ -42,19 +46,29 @@ def ui_get_sort_options():
         else:
             print("Please, select a number from 1 to 3")
 
+
 def ui_get_file_and_directory():
     while True:
-        print("A file path example" , os.path.expanduser("~"))
+        print("A file path example", os.path.expanduser("~"))
         path_to_directory = get_user_input("Please, enter a path to destination folder: ")
-        if os.path.isdir(path_to_directory):
+        if os.path.isdir(os.path.join(os.path.dirname(os.getcwd()), path_to_directory)):
+            print("Using relative path:", os.path.join(os.path.dirname(os.getcwd()), path_to_directory))
+        elif os.path.isdir(path_to_directory):
             print("Path accepted")
             break
+        elif os.path.isdir(os.path.dirname(path_to_directory)):
+            try:
+                os.mkdir(path_to_directory)
+                print("Path not found, New directory created at ", path_to_directory)
+                break
+            except:
+                print("Unable to make directory folder with same name can't exist at path location")
         else:
             print("Path to directory doesn't exist. Please, try again.")
 
     while True:
         file_name = get_user_input("Please enter a file name: ")
-        path_to_file=os.path.join(path_to_directory, file_name)
+        path_to_file = os.path.join(path_to_directory, file_name)
         path_to_file_ext = path_to_file + ".csv"
         if not os.path.isfile(path_to_file_ext) and validate_file_name(file_name):
             print("File name accepted")
@@ -82,18 +96,18 @@ def ui_commands(command_input):
     else:
         print("Command Not Recognised")
 
-    
 
 def get_user_input(message):
     while True:
 
         user_input = input(message)
-        
+
         commands = ["HELP", "RESTART", "QUIT"]
         if user_input.upper() in commands:
             ui_commands(user_input)
         else:
             return user_input
+
 
 class RestartCommand(Exception):
     """Exception to allow program to restart"""

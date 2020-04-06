@@ -67,5 +67,13 @@ class TestDataReader(unittest.TestCase):
         self.assertIsInstance(lat, float)
 
 
+class TestCreateCSV(unittest.TestCase):
+    def test_csv_created(self):
+        self.assertTrue("File Created")
+
+    def test_csv_creation_error(self):
+        self.assertTrue("Error writing to CSV")
+
+
 if __name__ == '__main__':
     unittest.main()

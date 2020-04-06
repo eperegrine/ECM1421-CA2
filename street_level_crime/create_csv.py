@@ -20,5 +20,5 @@ def convert_to_csv(data: list, path_and_filename: str) -> csv:
     except:
         print("Error writing to CSV")
         dirname = os.path.dirname(os.path.realpath(filename + ".csv"))
-        print("Saved to default location: " + os.path.join( dirname, filename + ".csv"))
+        print("Saved to default location: " + os.path.join(dirname, filename + ".csv"))
 
