@@ -16,7 +16,7 @@ def ui_get_postcode():
         postcode = get_user_input("Please, enter postcode (e.g. BH12 2ED)")
         if validate_postcode(postcode):
             return postcode
-        
+
         else:
             print("Please, check your postcode. It must be a valid UK format (e.g. GH12 2ED)")
 
@@ -44,13 +44,14 @@ def ui_get_sort_options():
 
 def ui_get_file_and_directory():
     while True:
+        print("A file path example" , os.path.expanduser("~"))
         path_to_directory = get_user_input("Please, enter a path to destination folder: ")
         if os.path.isdir(path_to_directory):
             print("Path accepted")
             break
         else:
             print("Path to directory doesn't exist. Please, try again.")
-        
+
     while True:
         file_name = get_user_input("Please enter a file name: ")
         path_to_file=os.path.join(path_to_directory, file_name)
@@ -58,11 +59,11 @@ def ui_get_file_and_directory():
         if not os.path.isfile(path_to_file_ext) and validate_file_name(file_name):
             print("File name accepted")
             return path_to_file_ext
-        elif file_exists(path_to_file):
-            print("File already exists. Please, try different name")       
+        elif os.path.isfile(path_to_file_ext):
+            print("File already exists. Please, try different name")
         else:
             print("Wrong! Path cant contain the following characters: < (less than) , > (greater than) , : (colon) , \" (double quote) , / (forward slash)  , \\ (backslash) , | (vertical bar or pipe) \n ? (question mark) , * (asterisk)")
-        
+
 def ui_commands(command_input):
     command_input = command_input.upper()
     if command_input == "HELP":
@@ -74,10 +75,10 @@ def ui_commands(command_input):
     else:
         print("Command Not Recognised")
 
-def ui_help_command(): 
+def ui_help_command():
 
     print('TBD')
-    
+
 def get_user_input(message):
     while True:
         user_input = input(message)
@@ -85,5 +86,5 @@ def get_user_input(message):
         commands = ["HELP", "RESTART", "QUIT"]
         if user_input.upper() in commands:
             ui_commands(user_input)
-        else: 
+        else:
             return user_input
