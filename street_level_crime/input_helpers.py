@@ -13,7 +13,7 @@ def validate_file_name(file_name):
 
 def ui_get_postcode():
     while True:
-        postcode = get_user_input("Please, enter postcode (e.g. BH12 2ED)")
+        postcode = get_user_input("Please, enter postcode (e.g. BH12 2ED) \n")
         if validate_postcode(postcode):
             return postcode
 
@@ -69,7 +69,7 @@ def ui_commands(command_input):
     if command_input == "HELP":
         ui_help_command()
     elif command_input == "RESTART":
-        print("TBD")
+        raise RestartCommand()
     elif command_input == "QUIT":
         sys.exit(0)
     else:
@@ -81,10 +81,15 @@ def ui_help_command():
 
 def get_user_input(message):
     while True:
-        user_input = input(message)
 
+        user_input = input(message)
+        
         commands = ["HELP", "RESTART", "QUIT"]
         if user_input.upper() in commands:
             ui_commands(user_input)
         else:
             return user_input
+
+class RestartCommand(Exception):
+    """Exception to allow program to restart"""
+    pass
