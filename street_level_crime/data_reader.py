@@ -1,5 +1,6 @@
 import csv
 import os
+import geodist
 
 from typing import List, Tuple, Any
 from enum import IntEnum
@@ -84,12 +85,12 @@ def read_crime_csv(filepath: str) -> CrimeDataFile:
         return crime_data_reader.fieldnames, data
 
 
-def order_crime_data(crime_data: CrimeDataFileData, field: CrimeDataField, reverse=False) -> CrimeDataFileData:
+def order_crime_data(crime_data: CrimeDataFileData, field: int, reverse=False) -> CrimeDataFileData:
     """Order the crime data
     
     Arguments:
         crime_data {CrimeDataFileData} -- The data to order
-        field {CrimeDataField} -- The field to order by
+        field {int} -- The field to order by, can be a CrimeDataField value
     
     Keyword Arguments:
         reverse {bool} -- whether or not to reverse the order (default: {False})
@@ -121,6 +122,50 @@ def get_csv_files_in_folder(folder_path: str) -> List[str]:
 
         f.extend(csv_files_at_level)
     return f
+
+
+def get_crime_in_area(crime_data_directory, centre_coordinate, radius, sort_mode):
+    csv_files = get_csv_files_in_folder(crime_data_directory)
+    crime_in_radius = []
+    crime_header = None
+    for csv_file in csv_files:
+        header, data = read_crime_csv(csv_file)
+
+        if crime_header == None:
+            crime_header = header
+
+        for crime_row in data:
+            lat = crime_row[CrimeDataField.Latitude]
+            lng = crime_row[CrimeDataField.Longitude]
+            if not lat or not lng:
+                # If location info is unavailable skip
+                continue
+            crime_coord = (lat, lng)
+            distance = geodist.distance(centre_coordinate, crime_coord)
+            if distance <= radius:
+                # Add distance to allow sorting by distance without recalculating it
+                crime_row.append(distance)
+                crime_in_radius.append(crime_row)
+
+    crime_header.append("Distance")
+
+    """
+    Sorting 
+    1 = distance
+    2 = date
+    3 = category
+    """
+    if sort_mode in [1, 2, 3]:
+        sorting_key = [
+            len(crime_header) - 1,  # Distance is the last key
+            CrimeDataField.Month,
+            CrimeDataField.CrimeType
+        ][sort_mode-1]
+        crime_in_radius = order_crime_data(crime_in_radius, sorting_key)
+    else:
+        print("Sort Mode not recognised, using default order")
+
+    return crime_header, crime_in_radius
 
 
 if __name__ == "__main__":
