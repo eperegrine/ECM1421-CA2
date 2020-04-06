@@ -38,7 +38,7 @@ def ui_get_sort_options():
     while True:
         option = get_user_input("Please, select sort option (number 1 to 3): \n [1] By disatnce from the postcode centre \n [2] By date (most recent first) \n [3] Crime category \n")
         if option in ["1", "2", "3"]:
-            return option
+            return int(option)
         else:
             print("Please, select a number from 1 to 3")
 
