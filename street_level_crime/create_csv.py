@@ -4,7 +4,7 @@ import os
 import input_helpers
 
 
-def convert_to_csv(headers: tuple, data: list) -> csv:
+def convert_to_csv(data: list) -> csv:
     """
  Converts variables to csv
     :Tuple headers: Contians the headers of the csv file
@@ -15,7 +15,6 @@ def convert_to_csv(headers: tuple, data: list) -> csv:
     try:
         with open(filename, 'w+', newline='') as f:  # creates document and opens for writer object
             csvWriter = csv.writer(f)
-            csvWriter.writerow(headers)
             for row in data:
                 csvWriter.writerow(row)
             print("File Created:", filename)
@@ -31,8 +30,3 @@ def custom_path(filename, dst):
     src = os.path.dirname(os.path.realpath(filename)) + '\\' + filename
     shutil.move(src, dst)
     print("Saved to: " + dst)
-
-
-headers = ['a', 'b', 'c']
-data = [['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i'], ['j', 'k', 'l'], ['m', 'n', 'o']]
-convert_to_csv(headers, data)

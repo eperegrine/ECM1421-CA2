@@ -1,7 +1,8 @@
 import input_helpers
+import create_csv
 import os
 import sys
-
+data = [['a', 'b', 'c'], ['a','b','c'],['d', 'e', 'f'], ['g', 'h', 'i'], ['j', 'k', 'l'], ['m', 'n', 'o']]
 if __name__ == "__main__":
     # String Formatting 
     green = "\033[92m"
@@ -13,6 +14,6 @@ if __name__ == "__main__":
     
     distance = input_helpers.ui_get_distance()
     sort = input_helpers.ui_get_sort_options()
-    output_file = input_helpers.ui_get_file_and_directory()
+    create_csv.convert_to_csv(data)
     
 
