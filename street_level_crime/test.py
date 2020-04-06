@@ -1,9 +1,7 @@
-import unittest.mock
-from unittest import TestCase, mock
+import unittest
 import input_helpers
 import geodist
 import data_reader
-import create_csv
 
 
 class UIHelpersTests(unittest.TestCase):
