@@ -3,12 +3,15 @@ import os
 import sys
 
 uk_postcode_format = re.compile("([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})")
+devon_postcode_format = re.compile("(((([Dd][Tt])|([Ee][Xx])|([Pp][Ll])|([Tt][Aa])|([Tt][Qq]))([0-9]{1,2}))\s?[0-9][A-Za-z]{2})")
 valid_file_name = re.compile('^[^\\\<>:"/|?]+$')
 
 
-def validate_postcode(postcode):
+def validate_uk_postcode(postcode):
     return bool(uk_postcode_format.match(postcode))
 
+def validate_devon_postcode(postcode):
+    return bool(devon_postcode_format.match(postcode))
 
 def validate_file_name(file_name):
     return bool(valid_file_name.match(file_name))
@@ -16,12 +19,14 @@ def validate_file_name(file_name):
 
 def ui_get_postcode():
     while True:
-        postcode = get_user_input("Please, enter postcode (e.g. BH12 2ED) \n")
-        if validate_postcode(postcode):
-            return postcode
-
+        postcode = get_user_input("Please, enter postcode (e.g. DT1 1AA) \n")
+        if validate_uk_postcode(postcode):
+            if validate_devon_postcode(postcode):
+                return postcode
+            else:
+                print("Your postcode is outside Devon area. You postcode must start with DT or EX or PL or TA or TQ (e.g. DT1 1AA)")
         else:
-            print("Please, check your postcode. It must be a valid UK format (e.g. GH12 2ED)")
+            print("Please, check your postcode. It must be a valid UK format (e.g. DT1 1AA)")
 
 
 def ui_get_distance():
@@ -31,12 +36,6 @@ def ui_get_distance():
             return float(distance)
         else:
             print("Please, select a number from 1 to 3")
-
-#Function to retrieve postcode data from \data\Devon_postcodes\postcodes.csv
-
-#Function to calculate centre coordinate of a postcode
-
-#Function to retreieve all crimes within a distance
 
 def ui_get_sort_options():
     while True:
