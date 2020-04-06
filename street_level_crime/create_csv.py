@@ -1,19 +1,24 @@
 import csv
+import shutil
+import os
 
 
-def convert_to_csv(headers: tuple, data: list) -> csv:
+def convert_to_csv(data: list, path_and_filename: str) -> csv:
     """
  Converts variables to csv
-    :Tuple headers: Contians the headers of the csv file
     :List data: Contains a list of row data in format List[List[String]]
+    :String Path: Contians the headers of the csv file
     """
+    filename = os.path.basename(path_and_filename)
     try:
-        with open('crime data.csv', 'w', newline='') as f:  # creates document and opens for writer object
-            csvWriter = csv.writer(f)  # creates writer object
-            csvWriter.writerow(headers)  # writes header
-            for i in range(0, len(data) - 1, 1):  # writes each row in array
-                csvWriter.writerow(data[i])  # writes from
-
+        with open(path_and_filename, 'w+', newline='') as f:  # creates document and opens for writer object
+            csvWriter = csv.writer(f)
+            for row in data:
+                csvWriter.writerow(row)
+            print("File Created:", filename)
+            f.close()
     except:
         print("Error writing to CSV")
-        csvWriter.writerow("Error writing to CSV")
+        print("Saved to default location: " + os.path.dirname(
+            os.path.realpath(filename + ".csv")) + '\\' + filename + ".csv")
+
