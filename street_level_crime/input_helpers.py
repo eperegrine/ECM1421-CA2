@@ -10,7 +10,7 @@ valid_file_name = re.compile('^[^\\\<>:"/|?]+$')
 
 
 def validate_postcode(postcode):
-    """Returns true if the postocde is a valid EX postcode"""
+    """Returns true if the postcode is a valid EX postcode"""
     return bool(uk_postcode_format.match(postcode)) and postcode[:2].upper() == "EX"
 
 

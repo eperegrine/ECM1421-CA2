@@ -1,10 +1,9 @@
-import csv
-import os
-import geodist
-
 from typing import List, Tuple, Any
 from enum import IntEnum
 
+import csv
+import os
+import geodist
 
 class CrimeDataField(IntEnum):
     CrimeID = 0

@@ -2,6 +2,8 @@ import unittest
 import input_helpers
 import geodist
 import data_reader
+from file_resolver import *
+import postcode as postcode_lookup
 
 
 class UIHelpersTests(unittest.TestCase):
@@ -76,6 +78,12 @@ class TestDataReader(unittest.TestCase):
         ordered = data_reader.order_crime_data(unordered, data_reader.CrimeDataField.CrimeType, reverse=True)
         self.assertEqual('caf30f8b3008f947eeba30e680603a7315afcef78e17d35acecd2591514768be',  ordered[0][0])
 
+class TestPostcodeToCoord(unittest.TestCase):
+    def test_uni_coord(self):
+        coord = postcode_lookup.postcode_to_coordinate(postcode_file_path, "EX44QJ")
+        ex44qj_postcode = (50.73514518, -3.53506244)
+        self.assertAlmostEqual(coord[0], ex44qj_postcode[0])
+        self.assertAlmostEqual(coord[1], ex44qj_postcode[1])
 
 class TestCreateCSV(unittest.TestCase):
     def test_csv_created(self):
