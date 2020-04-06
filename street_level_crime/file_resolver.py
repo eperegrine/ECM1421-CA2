@@ -1,3 +1,4 @@
+"""A module to help locate useful files"""
 import os
 
 root_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

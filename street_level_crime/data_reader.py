@@ -124,7 +124,18 @@ def get_csv_files_in_folder(folder_path: str) -> List[str]:
     return f
 
 
-def get_crime_in_area(crime_data_directory, centre_coordinate, radius, sort_mode):
+def get_crime_in_area(crime_data_directory: str, centre_coordinate: Tuple[float, float], radius: float, sort_mode: int):
+    """Reads a directory for crime data files
+
+    Arguments:
+        crime_data_directory {str} -- The directory containing crime data files
+        centre_coordinate {Tuple[float, float]} -- The centre coordinate to search around
+        radius {float} -- The radius to search around the centre coordinate
+        sort_mode {int} -- The sorting method to use
+
+    Returns:
+        Tuple[List[string], List[List[String]]] -- The header and the rows of crimes in radius
+    """
     csv_files = get_csv_files_in_folder(crime_data_directory)
     crime_in_radius = []
     crime_header = None
@@ -151,9 +162,7 @@ def get_crime_in_area(crime_data_directory, centre_coordinate, radius, sort_mode
 
     """
     Sorting 
-    1 = distance
-    2 = date
-    3 = category
+    1 = distance | 2 = date | 3 = category
     """
     if sort_mode in [1, 2, 3]:
         sorting_key = [
@@ -190,5 +199,6 @@ if __name__ == "__main__":
     for row in o_data[:10]:
         output += ', '.join(str(i) for i in row) + os.linesep
     print(output)
+    print(o_data[:3])
 
     print("\nEND\n")
