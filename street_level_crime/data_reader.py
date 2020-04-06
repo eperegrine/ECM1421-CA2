@@ -161,7 +161,8 @@ def get_crime_in_area(crime_data_directory, centre_coordinate, radius, sort_mode
             CrimeDataField.Month,
             CrimeDataField.CrimeType
         ][sort_mode-1]
-        crime_in_radius = order_crime_data(crime_in_radius, sorting_key)
+        reverse_order = sort_mode == 2
+        crime_in_radius = order_crime_data(crime_in_radius, sorting_key, reverse_order)
     else:
         print("Sort Mode not recognised, using default order")
 

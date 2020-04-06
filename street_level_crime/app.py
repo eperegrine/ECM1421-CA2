@@ -5,8 +5,6 @@ import sys
 import postcode
 import data_reader
 
-data = [['a', 'b', 'c'], ['a','b','c'],['d', 'e', 'f'], ['g', 'h', 'i'], ['j', 'k', 'l'], ['m', 'n', 'o']]
-
 root_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 base_data_path = os.path.join(root_folder, 'data')
 crime_data_path = os.path.join(base_data_path, "Devon_and_Cornwall_crime_data_2019")
@@ -19,7 +17,7 @@ def main_application():
     underline = '\033[4m'
 
     print(underline + "STREET CRIME IN DEVON \n" + end_text_formatting + green + "COMMANDS: \n HELP: Outputs An Instructions Document. \n QUIT: Quits The Program. \n RESTART: Restarts The Program. \n" + end_text_formatting)
-    user_postcode = "ex24dl"#input_helpers.ui_get_postcode()
+    user_postcode = input_helpers.ui_get_postcode()
 
     coordinate = postcode.postcode_to_coordinate(postcode_file_path, user_postcode)
     print(coordinate)
