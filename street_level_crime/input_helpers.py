@@ -65,9 +65,16 @@ def ui_get_file_and_directory():
             print("Wrong! Path cant contain the following characters: < (less than) , > (greater than) , : (colon) , \" (double quote) , / (forward slash)  , \\ (backslash) , | (vertical bar or pipe) \n ? (question mark) , * (asterisk)")
 
 def ui_commands(command_input):
+    # String formatting
+    green = "\033[92m"
+    blue = '\033[94m'
+    end_text_formatting = '\033[0m'
+    underline = '\033[4m'
+
     command_input = command_input.upper()
     if command_input == "HELP":
-        ui_help_command()
+       print( underline + "SYSTEM INSTRUCTIONS:" + end_text_formatting + blue + "\n [1] You will be asked to input a postcode, make sure this is an EX postcode as the program does not accept other areas. \n [2] Then you need to select the distance of crimes you want to display, you will get the option to display crimes in a 1, 2 or 5KM radius (You need to type 1 for 1km, 2 for 2KM or 3 for 5KM.) \n [3] You can then select the way the data is sorted, by distance, date and category of the crime. (You need to type 1 for distance, 2 for date or 3 for category) \n [4] And then you can select where the data will be saved to. This will be a file path located on your computer (e.g. C:\\Users\\Name) \n [5] Finally, you can enter a name that you want the file to be saved as (E.G. Crime_Data,  NOTE: The file name already has the ‘.csv’ extension added) \n Then your file will be saved for you to use." + end_text_formatting)
+       print(green + "COMMANDS: \n HELP: Outputs An Instructions Document. \n QUIT: Quits The Program. \n RESTART: Restarts The Program. \n" + end_text_formatting)
     elif command_input == "RESTART":
         raise RestartCommand()
     elif command_input == "QUIT":
@@ -75,9 +82,7 @@ def ui_commands(command_input):
     else:
         print("Command Not Recognised")
 
-def ui_help_command():
-
-    print('TBD')
+    
 
 def get_user_input(message):
     while True:
