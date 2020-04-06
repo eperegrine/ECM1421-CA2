@@ -1,32 +1,31 @@
 import re
 import os
 import sys
+import postcode as postcode_lookup
+from file_resolver import *
 
 uk_postcode_format = re.compile("([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})")
-devon_postcode_format = re.compile("(((([Dd][Tt])|([Ee][Xx])|([Pp][Ll])|([Tt][Aa])|([Tt][Qq]))([0-9]{1,2}))\s?[0-9][A-Za-z]{2})")
 valid_file_name = re.compile('^[^\\\<>:"/|?]+$')
 
 
 def validate_uk_postcode(postcode):
-    return bool(uk_postcode_format.match(postcode))
-
-def validate_devon_postcode(postcode):
-    return bool(devon_postcode_format.match(postcode))
+    return bool(uk_postcode_format.match(postcode)) and postcode[:2].upper() == "EX"
 
 def validate_file_name(file_name):
     return bool(valid_file_name.match(file_name))
 
 
-def ui_get_postcode():
+def ui_get_postcode_and_coordinate():
     while True:
-        postcode = get_user_input("Please, enter postcode (e.g. DT1 1AA) \n")
+        postcode = get_user_input("Please, enter postcode (e.g. EX4 4QJ) \n")
         if validate_uk_postcode(postcode):
-            if validate_devon_postcode(postcode):
-                return postcode
+            coord = postcode_lookup.postcode_to_coordinate(postcode_file_path, postcode)
+            if coord is not None:
+                return postcode, coord
             else:
-                print("Your postcode is outside Devon area. You postcode must start with DT or EX or PL or TA or TQ (e.g. DT1 1AA)")
+                print("Your postcode could not be found")
         else:
-            print("Please, check your postcode. It must be a valid UK format (e.g. DT1 1AA)")
+            print("Please, check your postcode. It must be a valid UK format (e.g. EX4 4QJ)")
 
 
 def ui_get_distance():
