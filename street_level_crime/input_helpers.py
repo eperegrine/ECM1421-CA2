@@ -24,7 +24,7 @@ def ui_get_distance():
     while True:
         distance = get_user_input("Please, select distance from postcode centre: \n [1] 1km \n [2] 2km \n [3] 5km \n")
         if distance in ["1", "2", "3"]:
-            return distance
+            return float(distance)
         else:
             print("Please, select a number from 1 to 3")
 
