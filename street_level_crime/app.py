@@ -14,6 +14,5 @@ if __name__ == "__main__":
     
     distance = input_helpers.ui_get_distance()
     sort = input_helpers.ui_get_sort_options()
-    create_csv.convert_to_csv(data)
-    
-
+    path = input_helpers.ui_get_file_and_directory()
+    create_csv.convert_to_csv(data, path)
