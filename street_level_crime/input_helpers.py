@@ -78,3 +78,13 @@ def ui_commands(command_input):
 def ui_help_command():
 
     print('TBD')
+
+def get_user_input(message):
+    while True:
+        user_input = input(message)
+
+        commands = ["HELP", "RESTART", "QUIT"]
+        if user_input.upper() in commands:
+            ui_commands(user_input)
+        else:
+            return user_input
