@@ -2,7 +2,6 @@ import unittest
 import input_helpers
 import geodist
 import data_reader
-import os
 
 
 class UIHelpersTests(unittest.TestCase):
@@ -67,11 +66,11 @@ class TestDataReader(unittest.TestCase):
         lat = processed[data_reader.CrimeDataField.Latitude]
         self.assertIsInstance(lat, float)
 
+
 class TestCreateCSV(unittest.TestCase):
-    # data = [['a', 'b', 'c'], ['a', 'b', 'c', 'd', 'e', 'f']]
-    # path_and_filename = os.path.join(os.path.expanduser("~"), 'test.csv')
     def test_csv_created(self):
         self.assertTrue("File Created")
+
     def test_csv_creation_error(self):
         self.assertTrue("Error writing to CSV")
 
