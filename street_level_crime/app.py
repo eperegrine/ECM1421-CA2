@@ -4,11 +4,7 @@ import os
 import sys
 import postcode
 import data_reader
-
-root_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-base_data_path = os.path.join(root_folder, 'data')
-crime_data_path = os.path.join(base_data_path, "Devon_and_Cornwall_crime_data_2019")
-postcode_file_path = os.path.join(base_data_path, "Devon_postcodes", "postcodes.csv")
+from file_resolver import *
 
 def main_application():
     # String Formatting
@@ -17,9 +13,7 @@ def main_application():
     underline = '\033[4m'
 
     print(underline + "STREET CRIME IN DEVON \n" + end_text_formatting + green + "COMMANDS: \n HELP: Outputs An Instructions Document. \n QUIT: Quits The Program. \n RESTART: Restarts The Program. \n" + end_text_formatting)
-    user_postcode = input_helpers.ui_get_postcode()
-
-    coordinate = postcode.postcode_to_coordinate(postcode_file_path, user_postcode)
+    postcode, coordinate = input_helpers.ui_get_postcode_and_coordinate()
     print(coordinate)
 
     distance = input_helpers.ui_get_distance()

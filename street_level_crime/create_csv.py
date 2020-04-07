@@ -1,5 +1,5 @@
+"""A module to output the report csv"""
 import csv
-import shutil
 import os
 
 

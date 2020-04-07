@@ -1,35 +1,40 @@
+"""A module to help get user input"""
 import re
 import os
 import sys
+import postcode as postcode_lookup
+from file_resolver import *
 
 uk_postcode_format = re.compile("([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})")
-devon_postcode_format = re.compile("(((([Dd][Tt])|([Ee][Xx])|([Pp][Ll])|([Tt][Aa])|([Tt][Qq]))([0-9]{1,2}))\s?[0-9][A-Za-z]{2})")
 valid_file_name = re.compile('^[^\\\<>:"/|?]+$')
 
 
-def validate_uk_postcode(postcode):
-    return bool(uk_postcode_format.match(postcode))
+def validate_postcode(postcode):
+    """Returns true if the postcode is a valid EX postcode"""
+    return bool(uk_postcode_format.match(postcode)) and postcode[:2].upper() == "EX"
 
-def validate_devon_postcode(postcode):
-    return bool(devon_postcode_format.match(postcode))
 
 def validate_file_name(file_name):
+    """Returns true if the file name is valid and not a path"""
     return bool(valid_file_name.match(file_name))
 
 
-def ui_get_postcode():
+def ui_get_postcode_and_coordinate():
+    """Keeps looping until the user enters a postcode which we can find a coordinate for"""
     while True:
-        postcode = get_user_input("Please, enter postcode (e.g. DT1 1AA) \n")
-        if validate_uk_postcode(postcode):
-            if validate_devon_postcode(postcode):
-                return postcode
+        postcode = get_user_input("Please, enter postcode (e.g. EX4 4QJ) \n")
+        if validate_postcode(postcode):
+            coord = postcode_lookup.postcode_to_coordinate(postcode_file_path, postcode)
+            if coord is not None:
+                return postcode, coord
             else:
-                print("Your postcode is outside Devon area. You postcode must start with DT or EX or PL or TA or TQ (e.g. DT1 1AA)")
+                print("Your postcode could not be found")
         else:
-            print("Please, check your postcode. It must be a valid UK format (e.g. DT1 1AA)")
+            print("Please, check your postcode. It must be a valid UK format (e.g. EX4 4QJ)")
 
 
 def ui_get_distance():
+    """Keeps looping until a valid distance is selected"""
     while True:
         distance = get_user_input("Please, select distance from postcode centre: \n [1] 1km \n [2] 2km \n [3] 5km \n")
         if distance in ["1", "2", "3"]:
@@ -37,7 +42,9 @@ def ui_get_distance():
         else:
             print("Please, select a number from 1 to 3")
 
+
 def ui_get_sort_options():
+    """Keeps looping until a valid sort option is selected"""
     while True:
         option = get_user_input("Please, select sort option (number 1 to 3): \n [1] By disatnce from the postcode centre \n [2] By date (most recent first) \n [3] Crime category \n")
         if option in ["1", "2", "3"]:
@@ -47,6 +54,7 @@ def ui_get_sort_options():
 
 
 def ui_get_file_and_directory():
+    """Keeps looping until a valid file path and name is entered"""
     while True:
         print("A file path example", os.path.expanduser("~"))
         path_to_directory = get_user_input("Please, enter a path to destination folder: ")
@@ -78,7 +86,9 @@ def ui_get_file_and_directory():
         else:
             print("Wrong! Path cant contain the following characters: < (less than) , > (greater than) , : (colon) , \" (double quote) , / (forward slash)  , \\ (backslash) , | (vertical bar or pipe) \n ? (question mark) , * (asterisk)")
 
+
 def ui_commands(command_input):
+    """Handles running the commands"""
     # String formatting
     green = "\033[92m"
     blue = '\033[94m'
@@ -98,6 +108,7 @@ def ui_commands(command_input):
 
 
 def get_user_input(message):
+    """An input wrapper to check for commands"""
     while True:
 
         user_input = input(message)
